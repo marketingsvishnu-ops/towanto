@@ -1,817 +1,357 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>360° FITNESS</title>
+<title>Demo</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap');
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
 }
 
 body{
-    background:#030405;
-    color:white;
-    font-family:Poppins,sans-serif;
-    overflow-x:hidden;
+  background:#0f1020;
+  color:white;
 }
 
-/* 360° BACKGROUND */
-
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-        radial-gradient(circle at 50% 40%,rgba(0,255,200,.12),transparent 25%),
-        linear-gradient(#030405,#07100e);
-    z-index:-3;
+.container{
+  display:flex;
+  flex-direction:row-reverse;
+  min-height:100vh;
 }
 
-.grid{
-    position:fixed;
-    inset:0;
-    background-image:
-        linear-gradient(rgba(0,255,200,.05) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,255,200,.05) 1px,transparent 1px);
-    background-size:60px 60px;
-    transform:perspective(500px) rotateX(65deg) scale(2);
-    transform-origin:center bottom;
-    opacity:.5;
-    z-index:-2;
+.demo{
+  width:70%;
+  background:#111;
+  position:relative;
 }
 
-/* NAV */
-
-nav{
-    position:fixed;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    width:92%;
-    max-width:1200px;
-    padding:15px 22px;
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:50px;
-    background:rgba(5,10,10,.65);
-    backdrop-filter:blur(18px);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    z-index:100;
+iframe{
+  width:100%;
+  height:100vh;
+  border:none;
 }
 
-.logo{
-    font-family:Orbitron,sans-serif;
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:2px;
+.right{
+  width:30%;
+  padding:30px 22px;
+  background:linear-gradient(180deg,#181a35,#0b0c18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow-y:auto;
 }
 
-.logo span{
-    color:#00ffc8;
+.box{
+  width:100%;
+  background:rgba(10,10,10,.88);
+  border:1px solid #ff1744;
+  border-radius:22px;
+  padding:26px 20px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(255,23,68,.28);
 }
 
-nav ul{
-    display:flex;
-    gap:28px;
-    list-style:none;
-}
-
-nav a{
-    color:#aaa;
-    text-decoration:none;
-    font-size:12px;
-    transition:.3s;
-}
-
-nav a:hover{
-    color:#00ffc8;
-}
-
-.join{
-    padding:10px 20px;
-    border-radius:30px;
-    background:#00ffc8;
-    color:#00100d!important;
-    font-weight:700;
-}
-
-/* HERO */
-
-.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:100px 20px 40px;
-    perspective:1200px;
-}
-
-.hero-content{
-    position:relative;
-    z-index:10;
-}
-
-.tag{
-    display:inline-block;
-    padding:8px 18px;
-    border:1px solid #00ffc8;
-    color:#00ffc8;
-    border-radius:50px;
-    font-size:11px;
-    letter-spacing:3px;
-    margin-bottom:25px;
+.badge{
+  display:inline-block;
+  background:#ff1744;
+  color:#fff;
+  padding:8px 18px;
+  border-radius:30px;
+  font-weight:800;
+  margin-bottom:16px;
 }
 
 h1{
-    font-family:Orbitron,sans-serif;
-    font-size:clamp(55px,10vw,130px);
-    line-height:.85;
-    letter-spacing:-5px;
-    text-shadow:
-        0 0 20px rgba(0,255,200,.2),
-        0 20px 50px #000;
+  font-size:34px;
+  color:#ff1744;
+  margin-bottom:10px;
+  text-transform:uppercase;
 }
 
-h1 span{
-    color:#00ffc8;
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  margin-bottom:22px;
+  color:#eee;
 }
 
-.hero p{
-    max-width:650px;
-    margin:30px auto;
-    color:#9ca8a5;
-    line-height:1.8;
+.features{
+  display:grid;
+  gap:12px;
+  margin:22px 0;
 }
 
-.buttons{
-    display:flex;
-    justify-content:center;
-    gap:15px;
+.feature{
+  background:linear-gradient(90deg,#1b1b1b,#2b2208);
+  border:1px solid rgba(212,175,55,.55);
+  padding:14px;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:700;
 }
 
-.btn{
-    padding:15px 27px;
-    border-radius:40px;
-    text-decoration:none;
-    font-size:12px;
-    font-weight:700;
-    transition:.3s;
+.feature span{
+  color:#ff1744;
 }
 
-.primary{
-    background:#00ffc8;
-    color:#00100d;
-    box-shadow:0 0 30px rgba(0,255,200,.25);
+/* Signup Button */
+.signup-btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:9px 16px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  border-radius:9px;
+  font-size:15px;
+  font-weight:800;
+  border:1px solid #1ebe5d;
+  transition:.3s;
 }
 
-.secondary{
-    color:white;
-    border:1px solid #444;
+.signup-btn:hover{
+  background:#1ebe5d;
+  transform:scale(1.03);
 }
 
-.btn:hover{
-    transform:translateY(-5px);
+.website-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:bold;
 }
 
-/* 360 ORBIT */
-
-.orbit{
-    position:absolute;
-    width:min(650px,90vw);
-    height:min(650px,90vw);
-    border:1px solid rgba(0,255,200,.15);
-    border-radius:50%;
-    transform:rotateX(65deg);
-    animation:orbitSpin 15s linear infinite;
+.website-row a{
+  text-decoration:none;
 }
 
-.orbit:nth-child(2){
-    width:min(520px,75vw);
-    height:min(520px,75vw);
-    border-color:rgba(255,255,255,.1);
-    animation-duration:20s;
-    animation-direction:reverse;
+.website{
+  color:#25D366;
 }
 
-.orbit:nth-child(3){
-    width:min(400px,60vw);
-    height:min(400px,60vw);
-    border-color:rgba(0,255,200,.2);
-    animation-duration:10s;
+.whatsapp-small{
+  color:#ff1744;
 }
-
-/* 3D CORE */
-
-.core{
-    position:absolute;
-    width:170px;
-    height:170px;
-    border-radius:50%;
-    background:
-        radial-gradient(circle at 35% 30%,#fff 0 2%,transparent 3%),
-        radial-gradient(circle,#00ffc8,#006b59 35%,#020605 70%);
-    box-shadow:
-        0 0 50px #00ffc8,
-        0 0 150px rgba(0,255,200,.3);
-    animation:coreFloat 4s ease-in-out infinite;
-}
-
-.core:before{
-    content:"360°";
-    position:absolute;
-    inset:0;
-    display:grid;
-    place-items:center;
-    font-family:Orbitron;
-    font-size:28px;
-    font-weight:900;
-}
-
-.core:after{
-    content:"";
-    position:absolute;
-    inset:-20px;
-    border:2px solid #00ffc8;
-    border-radius:50%;
-    animation:pulse 2s infinite;
-}
-
-/* FLOATING CARDS */
-
-.info{
-    position:absolute;
-    padding:18px 25px;
-    background:rgba(4,12,11,.8);
-    border:1px solid rgba(0,255,200,.25);
-    border-radius:15px;
-    backdrop-filter:blur(15px);
-    text-align:left;
-    box-shadow:0 15px 40px #000;
-    animation:float 4s ease-in-out infinite;
-}
-
-.info strong{
-    display:block;
-    color:#00ffc8;
-    font-family:Orbitron;
-    font-size:22px;
-}
-
-.info small{
-    color:#777;
-}
-
-.info.one{
-    top:25%;
-    left:8%;
-}
-
-.info.two{
-    right:8%;
-    top:30%;
-    animation-delay:1s;
-}
-
-.info.three{
-    left:12%;
-    bottom:20%;
-    animation-delay:2s;
-}
-
-/* SECTION */
-
-section{
-    padding:120px 7%;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:60px;
-}
-
-.section-title small{
-    color:#00ffc8;
-    letter-spacing:4px;
-}
-
-.section-title h2{
-    font-family:Orbitron;
-    font-size:clamp(35px,6vw,70px);
-    margin:15px 0;
-}
-
-.section-title p{
-    color:#777;
-}
-
-/* 360 CARDS */
-
-.cards{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
-    perspective:1000px;
-}
-
-.card{
-    min-height:350px;
-    padding:35px;
-    border-radius:25px;
-    background:linear-gradient(145deg,#101817,#050706);
-    border:1px solid #1b302c;
-    transition:.5s;
-    transform-style:preserve-3d;
-}
-
-.card:hover{
-    transform:rotateY(8deg) rotateX(5deg) translateY(-12px);
-    border-color:#00ffc8;
-    box-shadow:0 30px 60px rgba(0,255,200,.1);
-}
-
-.card-number{
-    font-family:Orbitron;
-    font-size:55px;
-    color:#17221f;
-}
-
-.card h3{
-    font-family:Orbitron;
-    margin-top:40px;
-    color:#00ffc8;
-}
-
-.card p{
-    color:#777;
-    font-size:13px;
-    line-height:1.8;
-    margin-top:15px;
-}
-
-/* 360 EXPERIENCE */
-
-.experience{
-    min-height:600px;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-}
-
-.room{
-    width:min(800px,90vw);
-    height:450px;
-    position:relative;
-    transform-style:preserve-3d;
-    transform:rotateX(8deg) rotateY(-12deg);
-    transition:transform .15s;
-}
-
-/* FLOOR */
-
-.floor{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:
-        linear-gradient(rgba(0,255,200,.08) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,255,200,.08) 1px,transparent 1px);
-    background-size:45px 45px;
-    transform:rotateX(70deg) translateZ(-180px);
-    transform-origin:bottom;
-}
-
-/* WALL */
-
-.wall{
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(90deg,transparent 48%,rgba(0,255,200,.15) 50%,transparent 52%),
-        #07100e;
-    border:1px solid #163a33;
-    transform:translateZ(-180px);
-}
-
-/* EQUIPMENT */
-
-.machine{
-    position:absolute;
-    width:130px;
-    height:190px;
-    border:5px solid #222;
-    background:#101313;
-    border-radius:12px;
-    box-shadow:0 20px 40px #000;
-}
-
-.machine:before{
-    content:"";
-    position:absolute;
-    width:70px;
-    height:8px;
-    background:#00ffc8;
-    left:25px;
-    top:25px;
-    box-shadow:0 100px 0 #222;
-}
-
-.machine.one{
-    left:15%;
-    bottom:20%;
-    transform:translateZ(30px);
-}
-
-.machine.two{
-    right:15%;
-    bottom:20%;
-    transform:translateZ(70px);
-}
-
-.bench{
-    position:absolute;
-    width:220px;
-    height:35px;
-    background:#191919;
-    bottom:23%;
-    left:36%;
-    transform:translateZ(100px) rotateX(-8deg);
-    border-radius:10px;
-}
-
-.weight{
-    position:absolute;
-    width:55px;
-    height:55px;
-    border:10px solid #00ffc8;
-    border-radius:50%;
-    bottom:22%;
-    left:30%;
-    transform:translateZ(120px);
-}
-
-/* CTA */
 
 .cta{
-    margin:40px 7% 100px;
-    padding:100px 30px;
-    border-radius:35px;
-    text-align:center;
-    border:1px solid #1a302b;
-    background:radial-gradient(circle,#09251f,#050706 60%);
+  display:block;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:17px;
+  border-radius:16px;
+  font-size:20px;
+  font-weight:900;
+  margin-top:22px;
+  box-shadow:0 8px 18px rgba(37,211,102,.35);
+  transition:.3s;
 }
 
-.cta h2{
-    font-family:Orbitron;
-    font-size:clamp(40px,7vw,80px);
+.cta:hover{
+  transform:scale(1.03);
+  background:#1ebe5d;
 }
 
-.cta p{
-    color:#777;
-    max-width:600px;
-    margin:20px auto 30px;
+/* Floating Signup Button */
+.floating-signup{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  background:#ff1744;
+  color:#fff;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:900;
+  border:3px solid #fff;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(255,23,68,0.6);
+  transition:.3s;
+  text-decoration:none;
+  display:inline-block;
 }
 
-/* FOOTER */
-
-footer{
-    border-top:1px solid #14201d;
-    padding:35px 7%;
-    display:flex;
-    justify-content:space-between;
-    color:#555;
-    font-size:12px;
+.floating-signup:hover{
+  transform:translateX(-50%) scale(1.08);
+  background:#ff5722;
+  box-shadow:0 12px 25px rgba(255,23,68,0.8);
 }
 
-/* ANIMATIONS */
-
-@keyframes orbitSpin{
-    from{transform:rotateX(65deg) rotateZ(0deg);}
-    to{transform:rotateX(65deg) rotateZ(360deg);}
+.trust{
+  margin-top:16px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.5;
 }
 
-@keyframes coreFloat{
-    0%,100%{transform:translateY(-10px);}
-    50%{transform:translateY(10px);}
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#aaa;
+  line-height:1.5;
 }
 
-@keyframes pulse{
-    0%{transform:scale(.9);opacity:1;}
-    100%{transform:scale(1.3);opacity:0;}
+@media(max-width:768px){
+  .container{
+    flex-direction:column-reverse;
+  }
+
+  .demo,
+  .right{
+    width:100%;
+  }
+
+  iframe{
+    height:500px;
+  }
+
+  .right{
+    padding:20px;
+  }
 }
 
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-15px);}
-}
+@media(max-width:480px){
+  h1{
+    font-size:28px;
+  }
 
-/* MOBILE */
+  .sub{
+    font-size:16px;
+  }
 
-@media(max-width:850px){
+  .feature{
+    font-size:16px;
+    padding:12px;
+  }
 
-    nav ul{
-        display:none;
-    }
+  .signup-btn{
+    font-size:14px;
+    padding:8px 13px;
+  }
 
-    .hero{
-        padding-top:130px;
-    }
+  .cta{
+    font-size:18px;
+    padding:15px;
+  }
 
-    .info{
-        transform:scale(.7);
-    }
-
-    .info.one{
-        left:-20px;
-    }
-
-    .info.two{
-        right:-20px;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .room{
-        transform:scale(.7);
-    }
-
-    footer{
-        flex-direction:column;
-        gap:10px;
-        text-align:center;
-    }
-}
-
-@media(max-width:500px){
-
-    h1{
-        letter-spacing:-3px;
-    }
-
-    .core{
-        width:120px;
-        height:120px;
-    }
-
-    .core:before{
-        font-size:20px;
-    }
-
-    .buttons{
-        flex-direction:column;
-        align-items:center;
-    }
-
-    .btn{
-        width:220px;
-    }
-
-    .room{
-        transform:scale(.48);
-    }
-
-    .info{
-        display:none;
-    }
+  .website-row{
+    flex-direction:column;
+    gap:8px;
+  }
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="grid"></div>
+<div class="container">
 
-<!-- NAVIGATION -->
-<nav>
+  <div class="demo">
+    <a href="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP" target="_blank" rel="noopener noreferrer" class="floating-signup">🔥 CLICK ON SIGNUP 🔥</a>
+    <iframe src="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP/"></iframe>
+  </div>
 
-    <div class="logo">
-        360<span>FIT</span>
+  <div class="right">
+    <div class="box">
+
+```
+  <div class="badge">AUTO WEBSITE</div>
+
+  <h1>Get Your ID Now</h1>
+
+  <p class="sub">
+    Fast auto website service with easy deposit support.
+    New users can start quickly through WhatsApp.
+  </p>
+
+  <div class="features">ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP
+
+    <div class="feature">
+      Minimum Deposit: <span>₹100 Only</span>
     </div>
 
-    <ul>
-        <li><a href="#home">HOME</a></li>
-        <li><a href="#programs">PROGRAMS</a></li>
-        <li><a href="#experience">360 EXPERIENCE</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-    </ul>
-
-    <a href="#contact" class="join">JOIN</a>
-
-</nav>
-
-
-<!-- HERO -->
-<section class="hero" id="home">
-
-    <div class="orbit"></div>
-    <div class="orbit"></div>
-    <div class="orbit"></div>
-
-    <div class="core"></div>
-
-    <div class="info one">
-        <strong>360°</strong>
-        <small>FULL BODY TRAINING</small>
+    <div class="feature">
+      Welcome Bonus: <span>10%</span>
     </div>
 
-    <div class="info two">
-        <strong>24/7</strong>
-        <small>SMART GYM ACCESS</small>
+    <div class="feature">
+      Auto Website Support:
+      <a
+        class="signup-btn"
+        href="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Click on Signup
+      </a>
     </div>
 
-    <div class="info three">
-        <strong>100%</strong>
-        <small>ENERGY MODE</small>
+    <div class="feature">
+      Quick Help:
+      <span>Deposit &amp; Withdrawal Support</span>
     </div>
 
-    <div class="hero-content">
+  </div>
 
-        <div class="tag">ENTER THE 360° EXPERIENCE</div>
+  <div class="website-row">
 
-        <h1>
-            TRAIN<br>
-            <span>IN EVERY</span><br>
-            DIMENSION
-        </h1>
-
-        <p>
-            A next-generation fitness experience built around
-            strength, movement, technology and complete body performance.
-        </p>
-
-        <div class="buttons">
-            <a href="#experience" class="btn primary">
-                ENTER 360°
-            </a>
-
-            <a href="#programs" class="btn secondary">
-                VIEW PROGRAMS
-            </a>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- PROGRAMS -->
-<section id="programs">
-
-    <div class="section-title">
-        <small>360° TRAINING</small>
-        <h2>MOVE WITHOUT LIMITS</h2>
-        <p>Train every angle. Build every dimension.</p>
-    </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="card-number">01</div>
-            <h3>STRENGTH</h3>
-            <p>
-                Progressive resistance workouts designed
-                to build serious strength and power.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="card-number">02</div>
-            <h3>MOBILITY</h3>
-            <p>
-                Improve movement, flexibility and body control
-                through dynamic functional training.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="card-number">03</div>
-            <h3>PERFORMANCE</h3>
-            <p>
-                High-intensity training focused on speed,
-                endurance and athletic performance.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- 360 ROOM -->
-<section id="experience">
-
-    <div class="section-title">
-        <small>VIRTUAL GYM</small>
-        <h2>360° GYM EXPERIENCE</h2>
-        <p>
-            Explore a futuristic training environment from every angle.
-        </p>
-    </div>
-
-    <div class="experience">
-
-        <div class="room" id="room">
-
-            <div class="wall"></div>
-            <div class="floor"></div>
-
-            <div class="machine one"></div>
-
-            <div class="machine two"></div>
-
-            <div class="bench"></div>
-
-            <div class="weight"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- CTA -->
-<div class="cta" id="contact">
-
-    <h2>GO 360°</h2>
-
-    <p>
-        Stop training in one direction.
-        Build strength, movement and performance from every angle.
-    </p>
-
-    <a href="mailto:hello@360fit.com" class="btn primary">
-        START YOUR JOURNEY
+    <a
+      class="website"
+      href="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      🌐 ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP
     </a>
+
+    <a
+      class="whatsapp-small"
+      href="https://wa.me/+447599214916"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      💬 WhatsApp
+    </a>
+
+  </div>
+
+  <a
+    class="cta"
+    href="https://wa.me/+447599214916?text=Hello%20I%20want%20new%20manual%20ID"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    📲 WhatsApp Now
+  </a>
+
+  <p class="trust">
+    ✅ Trusted Manual Support<br>
+    ✅ Simple Process<br>
+    ✅ Fast Response
+  </p>
+
+  <div class="footer">
+    18+ Only | Play Responsibly | Follow Your Local Laws | T&amp;C Apply
+  </div>
+
+</div>
+```
+
+  </div>
 
 </div>
 
-
-<footer>
-
-    <div>© 2026 360FIT</div>
-
-    <div>
-        STRENGTH • MOVEMENT • PERFORMANCE
-    </div>
-
-</footer>
-
-
-<script>
-
-/* MOUSE CONTROLLED 360° ROOM */
-
-const room = document.getElementById("room");
-
-document.addEventListener("mousemove", function(e){
-
-    const x = (e.clientX / window.innerWidth - .5) * 20;
-    const y = (e.clientY / window.innerHeight - .5) * 12;
-
-    room.style.transform =
-        `rotateX(${8 - y}deg) rotateY(${-12 + x}deg)`;
-
-});
-
-/* TOUCH CONTROL */
-
-let startX = 0;
-
-document.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
-});
-
-document.addEventListener("touchmove", e => {
-
-    const currentX = e.touches[0].clientX;
-    const difference = currentX - startX;
-
-    room.style.transform =
-        `rotateX(8deg) rotateY(${-12 + difference / 10}deg)`;
-
-});
-
-</script>
-
 </body>
 </html>
-```
