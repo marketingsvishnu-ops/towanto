@@ -1,357 +1,1027 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demo</title>
+
+<title>CricketLive — Live Cricket Scores & Sports News</title>
+
+<meta name="description"
+content="Live cricket scores, match updates, fixtures, results, cricket news, points tables and sports updates.">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+:root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #687386;
+    --primary: #0b7a45;
+    --primary-dark: #075b34;
+    --border: #e2e7ef;
+    --danger: #d62828;
+    --gold: #f4b400;
 }
 
-body{
-  background:#0f1020;
-  color:white;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.container{
-  display:flex;
-  flex-direction:row-reverse;
-  min-height:100vh;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
 }
 
-.demo{
-  width:70%;
-  background:#111;
-  position:relative;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-iframe{
-  width:100%;
-  height:100vh;
-  border:none;
+.container {
+    width: min(1200px, 94%);
+    margin: auto;
 }
 
-.right{
-  width:30%;
-  padding:30px 22px;
-  background:linear-gradient(180deg,#181a35,#0b0c18);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow-y:auto;
+/* HEADER */
+
+header {
+    background: var(--primary);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 12px rgba(0,0,0,.12);
 }
 
-.box{
-  width:100%;
-  background:rgba(10,10,10,.88);
-  border:1px solid #ff1744;
-  border-radius:22px;
-  padding:26px 20px;
-  text-align:center;
-  box-shadow:0 0 35px rgba(255,23,68,.28);
+.topbar {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-.badge{
-  display:inline-block;
-  background:#ff1744;
-  color:#fff;
-  padding:8px 18px;
-  border-radius:30px;
-  font-weight:800;
-  margin-bottom:16px;
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    white-space: nowrap;
 }
 
-h1{
-  font-size:34px;
-  color:#ff1744;
-  margin-bottom:10px;
-  text-transform:uppercase;
+.logo span {
+    color: #ffd447;
 }
 
-.sub{
-  font-size:17px;
-  line-height:1.5;
-  margin-bottom:22px;
-  color:#eee;
+nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
-.features{
-  display:grid;
-  gap:12px;
-  margin:22px 0;
+nav a {
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.feature{
-  background:linear-gradient(90deg,#1b1b1b,#2b2208);
-  border:1px solid rgba(212,175,55,.55);
-  padding:14px;
-  border-radius:14px;
-  font-size:17px;
-  font-weight:700;
+nav a:hover {
+    color: #ffd447;
 }
 
-.feature span{
-  color:#ff1744;
+.menu-btn {
+    display: none;
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
 }
 
-/* Signup Button */
-.signup-btn{
-  display:inline-block;
-  margin-top:8px;
-  padding:9px 16px;
-  background:#25D366;
-  color:#fff;
-  text-decoration:none;
-  border-radius:9px;
-  font-size:15px;
-  font-weight:800;
-  border:1px solid #1ebe5d;
-  transition:.3s;
+/* TICKER */
+
+.ticker {
+    background: #111827;
+    color: white;
+    overflow: hidden;
 }
 
-.signup-btn:hover{
-  background:#1ebe5d;
-  transform:scale(1.03);
+.ticker-inner {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    gap: 15px;
 }
 
-.website-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-top:16px;
-  font-size:14px;
-  font-weight:bold;
+.ticker-label {
+    background: var(--danger);
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.website-row a{
-  text-decoration:none;
+.ticker-text {
+    white-space: nowrap;
+    animation: ticker 25s linear infinite;
 }
 
-.website{
-  color:#25D366;
+@keyframes ticker {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
 }
 
-.whatsapp-small{
-  color:#ff1744;
+/* HERO */
+
+.hero {
+    padding: 35px 0 20px;
 }
 
-.cta{
-  display:block;
-  background:#25D366;
-  color:#fff;
-  text-decoration:none;
-  padding:17px;
-  border-radius:16px;
-  font-size:20px;
-  font-weight:900;
-  margin-top:22px;
-  box-shadow:0 8px 18px rgba(37,211,102,.35);
-  transition:.3s;
+.hero-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
 }
 
-.cta:hover{
-  transform:scale(1.03);
-  background:#1ebe5d;
+.hero-main {
+    min-height: 300px;
+    border-radius: 18px;
+    padding: 35px;
+    color: white;
+    display: flex;
+    align-items: end;
+    background:
+        linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.8)),
+        linear-gradient(135deg, #086f3d, #111827);
 }
 
-/* Floating Signup Button */
-.floating-signup{
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:50;
-  background:#ff1744;
-  color:#fff;
-  padding:12px 24px;
-  border-radius:8px;
-  font-size:18px;
-  font-weight:900;
-  border:3px solid #fff;
-  cursor:pointer;
-  box-shadow:0 8px 20px rgba(255,23,68,0.6);
-  transition:.3s;
-  text-decoration:none;
-  display:inline-block;
+.hero-main h1 {
+    font-size: clamp(30px, 5vw, 50px);
+    margin-bottom: 10px;
 }
 
-.floating-signup:hover{
-  transform:translateX(-50%) scale(1.08);
-  background:#ff5722;
-  box-shadow:0 12px 25px rgba(255,23,68,0.8);
+.hero-main p {
+    color: #e5e7eb;
 }
 
-.trust{
-  margin-top:16px;
-  color:#ccc;
-  font-size:14px;
-  line-height:1.5;
+.hero-side {
+    display: grid;
+    gap: 15px;
 }
 
-.footer{
-  margin-top:18px;
-  font-size:12px;
-  color:#aaa;
-  line-height:1.5;
+.mini-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
 }
 
-@media(max-width:768px){
-  .container{
-    flex-direction:column-reverse;
-  }
-
-  .demo,
-  .right{
-    width:100%;
-  }
-
-  iframe{
-    height:500px;
-  }
-
-  .right{
-    padding:20px;
-  }
+.mini-card small {
+    color: var(--muted);
 }
 
-@media(max-width:480px){
-  h1{
-    font-size:28px;
-  }
+.mini-card h3 {
+    margin-top: 5px;
+}
 
-  .sub{
-    font-size:16px;
-  }
+/* SECTION */
 
-  .feature{
-    font-size:16px;
-    padding:12px;
-  }
+.section {
+    padding: 20px 0;
+}
 
-  .signup-btn{
-    font-size:14px;
-    padding:8px 13px;
-  }
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
 
-  .cta{
-    font-size:18px;
-    padding:15px;
-  }
+.section-title h2 {
+    font-size: 24px;
+}
 
-  .website-row{
-    flex-direction:column;
-    gap:8px;
-  }
+.section-title a {
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* SCORE CARDS */
+
+.score-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.score-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.04);
+}
+
+.live {
+    color: var(--danger);
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.live::before {
+    content: "●";
+    margin-right: 5px;
+}
+
+.match-title {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.team {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+.score {
+    font-size: 18px;
+}
+
+.status {
+    background: #eef8f2;
+    color: var(--primary);
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* MAIN GRID */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* NEWS */
+
+.news-list {
+    display: grid;
+    gap: 14px;
+}
+
+.news-card {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px;
+}
+
+.news-image {
+    min-height: 110px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0b7a45, #263b55);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 30px;
+}
+
+.news-card small {
+    color: var(--muted);
+}
+
+.news-card h3 {
+    margin: 4px 0;
+}
+
+.news-card p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* TABLE */
+
+.table-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 15px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 10px 7px;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* FIXTURES */
+
+.fixture-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.fixture {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.fixture-date {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.fixture h3 {
+    margin: 8px 0;
+}
+
+.fixture p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* SPORTS */
+
+.sports-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.sport-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+}
+
+.sport-box .icon {
+    font-size: 32px;
+}
+
+.sport-box h3 {
+    margin-top: 8px;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 40px;
+    background: #101827;
+    color: white;
+    padding: 40px 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 25px;
+}
+
+footer h3 {
+    margin-bottom: 12px;
+}
+
+footer p,
+footer a {
+    color: #aeb8c8;
+    font-size: 14px;
+    display: block;
+    margin: 6px 0;
+}
+
+.copyright {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #283243;
+    text-align: center;
+    color: #8994a5;
+    font-size: 13px;
+}
+
+/* MOBILE */
+
+@media(max-width: 900px) {
+    nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--primary-dark);
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero-grid,
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .score-grid,
+    .fixture-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sports-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .score-grid,
+    .fixture-grid,
+    .sports-grid,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .news-card {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-main {
+        min-height: 260px;
+        padding: 25px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
 }
 </style>
-
 </head>
 
 <body>
 
+<header>
+    <div class="container topbar">
+
+        <a href="#" class="logo">
+            🏏 Cricket<span>Live</span>
+        </a>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <nav id="nav">
+            <a href="#live">Live Scores</a>
+            <a href="#news">News</a>
+            <a href="#fixtures">Fixtures</a>
+            <a href="#results">Results</a>
+            <a href="#table">Points Table</a>
+            <a href="#sports">Sports</a>
+        </nav>
+
+    </div>
+</header>
+
+<div class="ticker">
+    <div class="container ticker-inner">
+        <span class="ticker-label">BREAKING</span>
+        <div class="ticker-text">
+            Live cricket scores • Match updates • Fixtures • Results • Cricket news • Sports updates
+        </div>
+    </div>
+</div>
+
+<main>
+
+<section class="hero">
+<div class="container hero-grid">
+
+    <div class="hero-main">
+        <div>
+            <h1>Live Cricket Updates</h1>
+            <p>
+                Follow live scores, match results, fixtures, cricket news,
+                tournaments and sports updates in one place.
+            </p>
+        </div>
+    </div>
+
+    <div class="hero-side">
+
+        <div class="mini-card">
+            <small>LIVE NOW</small>
+            <h3>🇦🇫 Afghanistan vs Nepal 🇳🇵</h3>
+            <p>Asian Games Men's T20I</p>
+        </div>
+
+        <div class="mini-card">
+            <small>LATEST RESULT</small>
+            <h3>🇭🇰 Hong Kong vs Oman 🇴🇲</h3>
+            <p>Hong Kong won by 41 runs</p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- LIVE SCORES -->
+
+<section class="section" id="live">
 <div class="container">
 
-  <div class="demo">
-    <a href="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP" target="_blank" rel="noopener noreferrer" class="floating-signup">🔥 CLICK ON SIGNUP 🔥</a>
-    <iframe src="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP/"></iframe>
-  </div>
+<div class="section-title">
+    <h2>🔴 Live Cricket Scores</h2>
+    <a href="#">View All →</a>
+</div>
 
-  <div class="right">
-    <div class="box">
+<div class="score-grid">
 
-```
-  <div class="badge">AUTO WEBSITE</div>
+    <article class="score-card">
 
-  <h1>Get Your ID Now</h1>
+        <div class="live">LIVE</div>
 
-  <p class="sub">
-    Fast auto website service with easy deposit support.
-    New users can start quickly through WhatsApp.
-  </p>
+        <div class="match-title">
+            Asian Games Men's T20I
+        </div>
 
-  <div class="features">ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP
+        <div class="team">
+            <span>🇦🇫 Afghanistan</span>
+            <span class="score" id="afgScore">102/7</span>
+        </div>
 
-    <div class="feature">
-      Minimum Deposit: <span>₹100 Only</span>
-    </div>
+        <div class="team">
+            <span>🇳🇵 Nepal</span>
+            <span class="score">1/1</span>
+        </div>
 
-    <div class="feature">
-      Welcome Bonus: <span>10%</span>
-    </div>
+        <div class="status">
+            Nepal need 102 runs from 18.3 overs
+        </div>
 
-    <div class="feature">
-      Auto Website Support:
-      <a
-        class="signup-btn"
-        href="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Click on Signup
-      </a>
-    </div>
+    </article>
 
-    <div class="feature">
-      Quick Help:
-      <span>Deposit &amp; Withdrawal Support</span>
-    </div>
 
-  </div>
+    <article class="score-card">
 
-  <div class="website-row">
+        <div class="live">LIVE</div>
 
-    <a
-      class="website"
-      href="https://ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      🌐 ice777.com/clk?src=gtm1t8Y7ZO/rWdOELQxMP
-    </a>
+        <div class="match-title">
+            Australia Domestic One-Day Cup
+        </div>
 
-    <a
-      class="whatsapp-small"
-      href="https://wa.me/+447770775390"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      💬 WhatsApp
-    </a>
+        <div class="team">
+            <span>🇦🇺 NSW</span>
+            <span class="score">257/10</span>
+        </div>
 
-  </div>
+        <div class="team">
+            <span>🇦🇺 Victoria</span>
+            <span class="score">54/1</span>
+        </div>
 
-  <a
-    class="cta"
-    href="https://wa.me/+447770775390?text=Hello%20I%20want%20new%20ice777%20ID"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    📲 WhatsApp Now
-  </a>
+        <div class="status">
+            Victoria chasing 258
+        </div>
 
-  <p class="trust">
-    ✅ Trusted ice777 Support<br>
-    ✅ Simple Process<br>
-    ✅ Fast Response
-  </p>
+    </article>
 
-  <div class="footer">
-    18+ Only | Play Responsibly | Follow Your Local Laws | T&amp;C Apply
-  </div>
+
+    <article class="score-card">
+
+        <div class="live">UPCOMING</div>
+
+        <div class="match-title">
+            CSA T20 Challenge
+        </div>
+
+        <div class="team">
+            <span>🇿🇦 Northern Cape</span>
+            <span>VS</span>
+        </div>
+
+        <div class="team">
+            <span>🇿🇦 Limpopo</span>
+            <span>—</span>
+        </div>
+
+        <div class="status">
+            Match scheduled
+        </div>
+
+    </article>
 
 </div>
-```
+</div>
+</section>
 
-  </div>
+
+<!-- NEWS -->
+
+<section class="section" id="news">
+<div class="container">
+
+<div class="section-title">
+    <h2>📰 Latest Cricket News</h2>
+    <a href="#">More News →</a>
+</div>
+
+<div class="content-grid">
+
+<div class="news-list">
+
+    <article class="news-card">
+        <div class="news-image">🏏</div>
+        <div>
+            <small>Asian Games • Today</small>
+            <h3>Afghanistan and Nepal battle in men's T20 cricket</h3>
+            <p>
+                Follow the latest score, match situation and key moments
+                from the Asian Games cricket competition.
+            </p>
+        </div>
+    </article>
+
+    <article class="news-card">
+        <div class="news-image">🔥</div>
+        <div>
+            <small>International Cricket</small>
+            <h3>Latest cricket results and match updates</h3>
+            <p>
+                Get results, scorecards and updates from international
+                and domestic cricket.
+            </p>
+        </div>
+    </article>
+
+    <article class="news-card">
+        <div class="news-image">🏆</div>
+        <div>
+            <small>Tournaments</small>
+            <h3>Asian Games cricket competition continues</h3>
+            <p>
+                Track upcoming fixtures, results, standings and tournament
+                information.
+            </p>
+        </div>
+    </article>
 
 </div>
+
+
+<!-- SIDEBAR TABLE -->
+
+<div id="table">
+
+    <div class="section-title">
+        <h2>🏆 Points Table</h2>
+    </div>
+
+    <div class="table-card">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>P</th>
+                    <th>W</th>
+                    <th>Pts</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>🇳🇵 Nepal</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>🇲🇾 Malaysia</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>🇭🇰 Hong Kong</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>🇦🇫 Afghanistan</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- FIXTURES -->
+
+<section class="section" id="fixtures">
+<div class="container">
+
+<div class="section-title">
+    <h2>📅 Upcoming Matches</h2>
+    <a href="#">Full Schedule →</a>
+</div>
+
+<div class="fixture-grid">
+
+    <article class="fixture">
+        <div class="fixture-date">25 SEPTEMBER 2026</div>
+        <h3>🇿🇦 Northern Cape vs Limpopo</h3>
+        <p>CSA T20 Challenge</p>
+        <p>Diamond Oval, Kimberley</p>
+    </article>
+
+    <article class="fixture">
+        <div class="fixture-date">25 SEPTEMBER 2026</div>
+        <h3>🇿🇦 Warriors vs North West Dragons</h3>
+        <p>CSA Pro20 Cup</p>
+        <p>South Africa</p>
+    </article>
+
+    <article class="fixture">
+        <div class="fixture-date">28 SEPTEMBER 2026</div>
+        <h3>🇮🇳 India vs TBC</h3>
+        <p>Asian Games Quarter Final</p>
+        <p>Nisshin</p>
+    </article>
+
+</div>
+</div>
+</section>
+
+
+<!-- RESULTS -->
+
+<section class="section" id="results">
+<div class="container">
+
+<div class="section-title">
+    <h2>✅ Recent Results</h2>
+    <a href="#">All Results →</a>
+</div>
+
+<div class="fixture-grid">
+
+    <article class="fixture">
+        <div class="fixture-date">25 SEP 2026</div>
+        <h3>🇭🇰 Hong Kong 121/8</h3>
+        <h3>🇴🇲 Oman 80/6</h3>
+        <p><strong>Hong Kong won by 41 runs</strong></p>
+    </article>
+
+    <article class="fixture">
+        <div class="fixture-date">24 SEP 2026</div>
+        <h3>🏴 England 305/9</h3>
+        <h3>🇱🇰 Sri Lanka 321/6</h3>
+        <p><strong>Sri Lanka won by 16 runs</strong></p>
+    </article>
+
+    <article class="fixture">
+        <div class="fixture-date">24 SEP 2026</div>
+        <h3>🇿🇦 South Africa 297/8</h3>
+        <h3>🇦🇺 Australia 230</h3>
+        <p><strong>South Africa won by 67 runs</strong></p>
+    </article>
+
+</div>
+</div>
+</section>
+
+
+<!-- SPORTS -->
+
+<section class="section" id="sports">
+<div class="container">
+
+<div class="section-title">
+    <h2>⚽ All Sports</h2>
+</div>
+
+<div class="sports-grid">
+
+    <a class="sport-box" href="#">
+        <div class="icon">🏏</div>
+        <h3>Cricket</h3>
+        <p>Live Scores</p>
+    </a>
+
+    <a class="sport-box" href="#">
+        <div class="icon">⚽</div>
+        <h3>Football</h3>
+        <p>Scores & News</p>
+    </a>
+
+    <a class="sport-box" href="#">
+        <div class="icon">🏀</div>
+        <h3>Basketball</h3>
+        <p>Live Updates</p>
+    </a>
+
+    <a class="sport-box" href="#">
+        <div class="icon">🎾</div>
+        <h3>Tennis</h3>
+        <p>Results & Scores</p>
+    </a>
+
+</div>
+</div>
+</section>
+
+</main>
+
+
+<footer>
+
+<div class="container footer-grid">
+
+    <div>
+        <h3>🏏 CricketLive</h3>
+        <p>
+            Your sports destination for cricket scores,
+            match updates, fixtures, results and sports news.
+        </p>
+    </div>
+
+    <div>
+        <h3>Cricket</h3>
+        <a href="#live">Live Scores</a>
+        <a href="#fixtures">Fixtures</a>
+        <a href="#results">Results</a>
+        <a href="#table">Points Table</a>
+    </div>
+
+    <div>
+        <h3>Sports</h3>
+        <a href="#">Football</a>
+        <a href="#">Basketball</a>
+        <a href="#">Tennis</a>
+        <a href="#">More Sports</a>
+    </div>
+
+    <div>
+        <h3>Information</h3>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+    </div>
+
+</div>
+
+<div class="container copyright">
+    © <span id="year"></span> CricketLive. All Rights Reserved.
+</div>
+
+</footer>
+
+
+<script>
+
+/* Mobile menu */
+
+function toggleMenu() {
+    document.getElementById("nav").classList.toggle("active");
+}
+
+
+/* Current year */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+/*
+=====================================================
+LIVE SCORE API SECTION
+=====================================================
+
+Replace this demo function with your cricket API.
+
+Example structure:
+
+async function updateScores() {
+
+    const response = await fetch(
+        "YOUR_CRICKET_API_URL"
+    );
+
+    const data = await response.json();
+
+    // Update HTML with API data.
+
+}
+
+setInterval(updateScores, 30000);
+
+=====================================================
+*/
+
+
+/* Demo live-score refresh */
+
+let demoRuns = 102;
+
+function demoUpdate() {
+
+    /*
+      This is only a demonstration.
+      Replace it with real API data.
+    */
+
+    if (demoRuns < 130) {
+        demoRuns++;
+        document.getElementById("afgScore").textContent =
+            demoRuns + "/7";
+    }
+}
+
+setInterval(demoUpdate, 30000);
+
+
+/* Smooth scrolling */
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", function(e) {
+
+        const target = document.querySelector(
+            this.getAttribute("href")
+        );
+
+        if (target) {
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth"
+            });
+
+            document.getElementById("nav")
+                .classList.remove("active");
+        }
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
+```
